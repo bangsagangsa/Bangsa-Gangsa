@@ -219,6 +219,7 @@ document.addEventListener('visibilitychange', () => {
   }
 });
 
+
 /* ─── Init ─────────────── */
 loadTrack(currentIndex);
 updatePlayIcon();
