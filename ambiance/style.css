@@ -534,3 +534,84 @@ body {
     height: 80%;
   }
 }
+
+@media (max-height: 450px) {
+  :root {
+    --disc-size: min(50vw, 190px);
+    --panel-expanded: 50vh;
+  }
+
+  .top-bar {
+    padding: 8px 20px 2px;
+  }
+
+  .logo {
+    height: 32px;
+  }
+
+  .player-area {
+    gap: 6px;
+    padding-bottom: calc(var(--panel-collapsed) + 6px);
+  }
+
+  .disc-stage {
+    top: 17%;
+  }
+
+  .track-info {
+    padding-top: 80%;
+  }
+
+  .track-title {
+    font-size: clamp(14px, 3.5vw, 18px);
+    padding-top: 10px;
+  }
+
+  .track-artist {
+    font-size: clamp(10px, 2vw, 12px);
+    margin-top: 0px;
+  }
+
+  .controls {
+    gap: clamp(15px, 3vw, 30px);
+    margin-top: 2%;
+  }
+
+  .ctrl-btn.prev svg,
+  .ctrl-btn.next svg {
+    width: clamp(25px, 3vw, 35px);
+    height: clamp(25px, 3vw, 35px);
+  }
+
+  .ctrl-btn.play-pause {
+    width: clamp(55px, 6vw, 50px);
+    height: clamp(55px, 6vw, 50px);
+  }
+
+  .info-toggle-btn {
+    padding: 0px 0;
+    width: 100%;
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .info-panel {
+    padding: 0 12px 20px;
+    top: 55%;
+  }
+
+  .info-expanded {
+    margin-top: 12px;
+    max-height: calc(var(--panel-expanded) - 70px);
+  }
+
+  .info-expanded h2 {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .bg-gong-stand {
+    padding-top: 10%;
+    height: 100%;
+  }
+}
