@@ -45,7 +45,7 @@ function loadTrack(index) {
 
 /* ─── Play / pause ─────────────── */
 function updatePlayIcon() {
-  playIcon.src = isPlaying ? 'assets/images/play.png' : 'assets/images/pause.png';
+  playIcon.src = isPlaying ? 'assets/images/pause.png' : 'assets/images/play.png';
 }
 
 function setPlaying(val) {
