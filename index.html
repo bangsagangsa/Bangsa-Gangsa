@@ -51,7 +51,7 @@
       }
 
       #info-btn {
-        position: absolute; bottom: 10%; right: 7%; width: 10vw; max-width: 200px; min-width: 100px;
+        position: absolute; bottom: 8%; right: 5%; width: 15vw; max-width: 150px; min-width: 70px;
         opacity: 0; z-index: 20; transition: opacity 0.7s ease; cursor: pointer;
       }
 
@@ -67,6 +67,17 @@
       }
 
       #info-box.visible { opacity: 0.95; }
+      #info-box p {
+        margin: 0 0 10px;
+        line-height: 1.45;
+      }
+      #info-box p:last-child {
+        margin-bottom: 0;
+      }
+      #info-credit {
+        font-size: 0.85em;
+        color: rgba(43, 29, 14, 0.7);
+      }
 
       #bottom-logo {
         position: absolute;
@@ -130,7 +141,10 @@
     <div id="frame-overlay"></div>
 
     <img id="info-btn" class="hidden" src="./assets/ui/info.png" alt="Info" />
-    <div id="info-box" class="hidden" role="dialog"><p id="info-text"></p></div>
+    <div id="info-box" class="hidden" role="dialog">
+      <p id="info-text"></p>
+      <p id="info-credit"></p>
+    </div>
     <img id="bottom-logo" src="./assets/ui/logo.png" alt="Logo" />
 
     <a-scene 
@@ -175,16 +189,16 @@
 
     // ── DATA ──────────────────────────────────────────────────────────────────
     const instruments = [
-      { name: "bonang", desc: "The Bonang is a pot shaped instrument with knobs on its head, suspended over strings on a wooden frame or rancak. It is played by hitting the knobs on the gongs." },
+      { name: "bonang", desc: "The Bonang is a pot shaped instrument with knobs on its head, suspended over strings on a wooden frame or rancak. It is played by hitting the knobs on the gongs.", credits: "Sound: ZapSplat" },
       { name: "demung", desc: "The Demung is a metallophone with metal bars over a wooden resonator and is struck by a wooden hammer. It plays the lowest octave of the core melody." },
-      { name: "gambang", desc: "The Gambang consists of bars placed over a boat-shaped resonator. It is a multi-octave instrument and sounded with two small hammer-like beaters." },
-      { name: "gendang", desc: "The Gendang controls the rhythm of a composition and is played by hitting both heads with the palm of the hand." },
-      { name: "gender", desc: "A Gender is an instrument generally found in Java and Bali Gamelan, with bars placed over bamboo resonators. It is played using two beaters for multi-octave Gender." },
-      { name: "gong", desc: "Shaped similarly to other instruments in the Pencon family, the Gong is larger in size." },
-      { name: "kempul", desc: "Kempul is similar to Gong but are smaller in size and is played by hitting the nob to structure the melody." },
+      { name: "gambang", desc: "The Gambang consists of bars placed over a boat-shaped resonator. It is a multi-octave instrument and sounded with two small hammer-like beaters.", credits: "Sound: GAMBANG_GPL6l.wav by Digitopia_CdM -- https://freesound.org/s/261911/ -- License: Attribution 3.0" },
+      { name: "gendang", desc: "The Gendang controls the rhythm of a composition and is played by hitting both heads with the palm of the hand.", credits: "Sound: ZapSplat" },
+      { name: "gender", desc: "A Gender is an instrument generally found in Java and Bali Gamelan, with bars placed over bamboo resonators. It is played using two beaters for multi-octave Gender.", credits: "Sound: ZapSplat" },
+      { name: "gong", desc: "Shaped similarly to other instruments in the Pencon family, the Gong is larger in size.", credits: "Sound: ZapSplat" },
+      { name: "kempul", desc: "Kempul is similar to Gong but are smaller in size and is played by hitting the nob to structure the melody.", credits: "Sound: kempul_zoom_recorder.aiff by SDLx -- https://freesound.org/s/336147/ -- License: Attribution 3.0" },
       { name: "kenong", desc: "Kenong is the designation for large, individual, horizontally resting gamelan gongs." },
-      { name: "rebab", desc: "The Rebab can be played in various scale. It is a bowed lute with a long neck with a triangular resonator and two brass chords." },
-      { name: "saron", desc: "A single-octave metallophone. The Saron represents the values of harmony and cooperation in the Gamelan system." },
+      { name: "rebab", desc: "The Rebab can be played in various scale. It is a bowed lute with a long neck with a triangular resonator and two brass chords.", credits: "Sound: Javanese Rebab Music - Indonesia by RTB45 -- https://freesound.org/s/253960/ -- License: Attribution 4.0" },
+      { name: "saron", desc: "A single-octave metallophone. The Saron represents the values of harmony and cooperation in the Gamelan system.", credits: "Sound: sp3.aif by tedthetrumpet -- https://freesound.org/s/29661/ -- License: Creative Commons 0" },
       { name: "siter", desc: "The Siter is played by plucking its chords and is rarely in Gamelan ensembles, used as an addition to the melody. The Siter has metal strings over a box resonator." },
       { name: "suling", desc: "The suling is made of bamboo and is played by blowing it." }
     ];
@@ -193,6 +207,7 @@
     const assetLib       = document.querySelector('#asset-library');
     const container      = document.querySelector('#main-container');
     const infoText       = document.querySelector('#info-text');
+    const infoCredit     = document.querySelector('#info-credit');
     const scanUI         = document.querySelector('#scanning-overlay');
     const instructionImg = document.querySelector('#instruction-img');
     const infoBtn        = document.querySelector('#info-btn');
@@ -267,6 +282,7 @@
         requestAnimationFrame(() => infoBtn.classList.add('visible'));
         setTimeout(() => scanUI.classList.add('hidden'), 400);
         infoText.innerText = item.desc;
+        infoCredit.innerText = item.credits || 'Sound source credit: traditional gamelan recordings.';
 
         const plane = document.querySelector(`#${item.name}-entity`);
         const v     = document.querySelector(`#${item.name}-vid`);
@@ -360,9 +376,8 @@
 
       instruments.forEach(item => {
         const v = document.querySelector(`#${item.name}-vid`);
-        const a = document.querySelector(`#${item.name}-audio`);
         v.play().then(() => v.pause()).catch(() => {});
-        a.play().then(() => { a.pause(); a.currentTime = 0; }).catch(() => {});
+        // Audio does not need warming up — remove it to prevent auto-play
       });
     });
 
